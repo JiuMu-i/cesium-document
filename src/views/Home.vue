@@ -1,18 +1,41 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="home-page">
+    <button @click="goDocument">Docs</button>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import {
+  reactive,
+  toRefs,
+} from 'vue';
+import { useRouter } from 'vue-router';
 
-@Options({
-  components: {
-    HelloWorld,
+export default {
+  name: 'Home',
+  setup() {
+    const router = useRouter();
+    const state = reactive({});
+
+    // forward Document page
+    const goDocument = () => {
+      router.push({
+        name: 'Document',
+        path: '/document',
+      });
+    };
+
+    return {
+      ...toRefs(state),
+      goDocument,
+    };
   },
-})
-export default class Home extends Vue {}
+};
 </script>
+
+<style lang="scss" scoped>
+.home-page {
+  width: 100%;
+  height: 100vh;
+}
+</style>
